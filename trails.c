@@ -1,9 +1,7 @@
 #include <Windows.h>
 
-DWORD WINAPI MainThread(LPVOID lpParam)
+void enableTrails(void)
 {
-    /* Add Trails option back to the game menu. */
-
     *(WORD*)0x6D8F38 = 9;
     memcpy((char*)0x6D8F3A, "FED_TRA\0", 8);
     *(WORD*)0x6D8F4A = 10;
@@ -30,8 +28,6 @@ DWORD WINAPI MainThread(LPVOID lpParam)
     *(WORD*)0x6D8FD4 = 320;
     *(WORD*)0x6D8FD6 = 353;
     *(WORD*)0x6D8FD8 = 3;
-
-    return 0;
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -39,7 +35,7 @@ BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpRese
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        CreateThread(0, 0, MainThread, hModule, 0, 0);
+        enableTrails();
         break;
 
     case DLL_THREAD_ATTACH:
